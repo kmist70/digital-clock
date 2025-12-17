@@ -8,7 +8,7 @@ def update_time():
     label.config(text=current_time)
     root.after(1000, update_time)    
     
-# checks if the user input is a valid font color
+# checks if the user input is a valid color
 def is_valid_color(root, color):
     try:
         root.winfo_rgb(color)
@@ -23,21 +23,28 @@ root = tk.Tk()
 root.geometry("430x100")
 root.title("Personalized Digital Clock")
 
+# lists available fonts
+all_fonts = sorted(font.families())
+print("Available fonts:")
+for f in all_fonts: print(" -", f)
+
 # customizes font type, font color, and background color
-all_fonts = set(font.families())
+font_map = {f.lower(): f for f in font.families()}
+
 while True:
-    user_font = input("Enter your preferred font (Make sure the first letter is capitalized) or press 'd' for default: ")
-    if user_font in all_fonts:
-        break
-    elif user_font.lower() == 'd':
+    user_font = input("\nEnter your preferred font or press 'd' for default: ")
+    if user_font.lower() == 'd':
         user_font = "Arial"
         break
+    lf = user_font.lower()
+    if lf in font_map:
+        user_font = font_map[lf]
+        break
     else:
-        print("Font not found. Please try again.")
-        
+        print("Font not found. Please try again.")   
         
 while True:
-    font_color = input("Enter your preferred font color as a word ('red') or as a hex ('#FF0000'), or press 'd' for default: ")
+    font_color = input("\nEnter your preferred font color as a word ('red') or as a hex ('#FF0000'), or press 'd' for default: ")
     if is_valid_color(root, font_color):
         break
     elif font_color.lower() == 'd':
@@ -47,7 +54,7 @@ while True:
         print("Invalid color. Please try again.")
         
 while True:
-    bg_color = input("Enter your preferred background color as a word ('blue') or as a hex ('#0000FF'), or press 'd' for default: ")
+    bg_color = input("\nEnter your preferred background color as a word ('blue') or as a hex ('#0000FF'), or press 'd' for default: ")
     if is_valid_color(root, bg_color):
         break
     elif bg_color.lower() == 'd':
@@ -56,9 +63,10 @@ while True:
     else:
         print("Invalid color. Please try again.")
 
-
+# apply user preferences
 label = tk.Label(root, font=(user_font, 70), fg=font_color, bg=bg_color)
 label.pack(padx=10, pady=10)
+print("Your personalized digital clock is now running!")
 
 update_time()
 root.mainloop()
