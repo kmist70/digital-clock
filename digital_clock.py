@@ -59,8 +59,8 @@ else:
 
 # apply user preferences
 label = tk.Label(root, font=(user_font, 70), fg=font_color, bg=bg_color)
-label.pack(padx=10, pady=10)
-root.deiconify()  # shows the window after set up is complete
+label.pack(expand=True, fill='both')
+root.deiconify()  # shows the window after set up is completed
 print("\nYour personalized digital clock is now running!")
 
 # updates the time every 1000 ms (1 second)
