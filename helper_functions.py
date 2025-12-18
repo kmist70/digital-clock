@@ -15,9 +15,8 @@ def get_valid_font(font_map):
 # checks if the theme input is valid with a provided function
 def get_valid_theme(theme_map):
     user_input = input("\nChoose a theme: ").lower()
-    result = theme_map.get(user_input)
-    if result:
-        return result
+    if user_input in theme_map:
+        return user_input
 
     print("Invalid choice. Please enter one of the listed themes.")
 
