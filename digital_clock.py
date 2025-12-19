@@ -8,7 +8,7 @@ print("Welcome to your Personalized Digital Clock!\n")
 
 root = tk.Tk()
 root.withdraw()  # hides the window while setting up the clock
-root.geometry("430x100")
+root.geometry("430x150")
 root.title("Personalized Digital Clock")
 
 # lists available fonts to the console
@@ -26,7 +26,10 @@ while user_font is None:
 themes = {
     "dark": {"font_color": "white", "bg_color": "black"},
     "light": {"font_color": "black", "bg_color": "white"},
-    "sunny": {"font_color": "yellow", "bg_color": "blue"}
+    "sunny": {"font_color": "yellow", "bg_color": "blue"},
+    "retro": {"font_color": "green", "bg_color": "black"},
+    "forest": {"font_color": "green", "bg_color": "brown"},
+    "aqua": {"font_color": "cyan", "bg_color": "navy"}
 }
 # asks if user wants pre-made or custom themes
 while True:
@@ -60,13 +63,19 @@ else:
 # apply user preferences
 label = tk.Label(root, font=(user_font, 70), fg=font_color, bg=bg_color)
 label.pack(expand=True, fill='both')
+date_label = tk.Label(root, font=(user_font, 20), fg=font_color, bg=bg_color)
+date_label.pack(expand=True, fill='both')
 root.deiconify()  # shows the window after set up is completed
 print("\nYour personalized digital clock is now running!")
 
-# updates the time every 1000 ms (1 second)
+# updates the time and date every 1000 ms (1 second)
 def update_time():
     current_time = time.strftime("%I:%M:%S %p")
     label.config(text=current_time)
+    
+    current_date = time.strftime("%A, %B %d")
+    date_label.config(text=current_date)
+    
     root.after(1000, update_time)
 
 update_time()
